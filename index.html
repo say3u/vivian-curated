@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivian Curated</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:       #A07858;
+      --light-rose: #C8A882;
+      --pale:       #F0E8DC;
+      --cream:      #F7F2EC;
+      --deep:       #1E1410;
+      --text:       #5C3D28;
+      --muted:      #967055;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(247, 242, 236, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(160, 120, 88, 0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--deep);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--rose); }
+
+    .nav-book {
+      background: var(--rose) !important;
+      color: var(--white) !important;
+      padding: 0.5rem 1.3rem;
+      border-radius: 50px;
+    }
+
+    .nav-book:hover { background: var(--deep) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(140deg, #F5EFE6 0%, #EDE3D8 35%, #E4D5C3 65%, #F5EFE6 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background:
+        radial-gradient(ellipse at 25% 35%, rgba(200,168,130,0.38) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 65%, rgba(160,120,88,0.2) 0%, transparent 55%);
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      0%   { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.04) translate(2%, 3%); }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 400;
+      color: var(--deep);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--rose); font-weight: 500; }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto 2.75rem;
+      letter-spacing: 0.02em;
+      line-height: 1.8;
+    }
+
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .btn-primary { background: var(--rose); color: var(--white); }
+    .btn-primary:hover {
+      background: var(--deep);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(30,20,16,0.25);
+    }
+
+    .btn-outline { background: transparent; color: var(--rose); border: 1.5px solid var(--rose); }
+    .btn-outline:hover { background: var(--rose); color: var(--white); transform: translateY(-2px); }
+
+    /* ── SHARED SECTION ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-image { position: relative; }
+
+    .about-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, #E8D5C0, #C8A882, #A07858);
+      border-radius: 4px 80px 4px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: rgba(92,51,64,0.45);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .about-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .about-accent {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 55%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #F0E8DC, #D4C0A8);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--pale);
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--rose);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--cream); }
+
+    .services-header { text-align: center; margin-bottom: 3rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .service-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(30,20,16,0.22);
+    }
+
+    .service-card:nth-child(1) { background: linear-gradient(160deg, #D4C0A8, #A07858); }
+    .service-card:nth-child(2) { background: linear-gradient(160deg, #C8B090, #8A6845); }
+    .service-card:nth-child(3) { background: linear-gradient(160deg, #DDD0BC, #B89870); }
+    .service-card:nth-child(4) { background: linear-gradient(160deg, #C4AA88, #906848); }
+    .service-card:nth-child(5) { background: linear-gradient(160deg, #E4D8C8, #C0A080); }
+    .service-card:nth-child(6) { background: linear-gradient(160deg, #CCBA9C, #A07858); }
+
+    .service-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(to bottom, rgba(30,20,16,0.55) 0%, transparent 35%, transparent 60%, rgba(30,20,16,0.72) 100%);
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .service-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .service-price {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-book {
+      display: inline-block;
+      background: var(--white);
+      color: var(--deep);
+      padding: 0.42rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.22s;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .btn-book:hover {
+      background: var(--rose);
+      color: var(--white);
+    }
+
+    /* ── GALLERY ── */
+    .gallery-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-header .section-sub { margin: 0 auto; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(1) { grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-row: span 2; }
+
+    .gallery-ph {
+      width: 100%;
+      min-height: 220px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: rgba(92,51,64,0.4);
+    }
+
+    .gallery-item:nth-child(1) .gallery-ph,
+    .gallery-item:nth-child(4) .gallery-ph { min-height: 460px; }
+
+    .gallery-item:nth-child(1) { background: linear-gradient(145deg, #D4C0A8, #B89878); }
+    .gallery-item:nth-child(2) { background: linear-gradient(145deg, #C8B090, #A88060); }
+    .gallery-item:nth-child(3) { background: linear-gradient(145deg, #DDD0BC, #C4A880); }
+    .gallery-item:nth-child(4) { background: linear-gradient(145deg, #C4AA88, #A07858); }
+    .gallery-item:nth-child(5) { background: linear-gradient(145deg, #E4D8C8, #C8AA88); }
+    .gallery-item:nth-child(6) { background: linear-gradient(145deg, #CCBA9C, #B09070); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(30,20,16,0.6), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-label {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--white);
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* ── BOOKING ── */
+    .booking { background: var(--white); }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .booking-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      color: var(--deep);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .booking-info h2 em { font-style: italic; color: var(--rose); }
+
+    .booking-info > p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+
+    .booking-locs { display: flex; flex-direction: column; gap: 1rem; }
+
+    .booking-loc {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: var(--pale);
+    }
+
+    .loc-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--light-rose), var(--rose));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .booking-loc h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--deep);
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .booking-loc p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .booking-form {
+      background: var(--pale);
+      border-radius: 22px;
+      padding: 2.5rem;
+    }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 500;
+      color: var(--deep);
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.82rem 1rem;
+      border: 1.5px solid rgba(160,120,88,0.2);
+      border-radius: 10px;
+      background: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.88rem;
+      color: var(--deep);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--rose); }
+
+    .form-group textarea { min-height: 95px; resize: vertical; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .radio-group { display: flex; gap: 0.75rem; }
+
+    .radio-opt { flex: 1; position: relative; }
+    .radio-opt input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .radio-opt label {
+      display: block;
+      padding: 0.75rem;
+      text-align: center;
+      border: 1.5px solid rgba(160,120,88,0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      background: var(--white);
+      font-size: 0.8rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.03em !important;
+      text-transform: none !important;
+      color: var(--muted) !important;
+      transition: all 0.2s;
+    }
+    .radio-opt input[type="radio"]:checked + label {
+      border-color: var(--rose);
+      background: #F5EFE6;
+      color: var(--rose) !important;
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: var(--rose);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: var(--deep);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(30,20,16,0.25);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--light-rose);
+      margin-bottom: 2rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--light-rose); }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.25s;
+    }
+
+    .social-btn:hover { background: var(--rose); color: var(--white); }
+
+    .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+
+      .about-grid,
+      .booking-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .about-image { max-width: 300px; margin: 0 auto; }
+
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) { grid-row: span 1; }
+      .gallery-item:nth-child(1) .gallery-ph,
+      .gallery-item:nth-child(4) .gallery-ph { min-height: 220px; }
+
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Vivian Curated</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#book" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Esthetician &nbsp;·&nbsp; San Diego, California</span>
+    <h1><em>Vivian Curated</em></h1>
+    <p>Body text</p>
+    <div class="hero-buttons">
+      <a href="#book" class="btn btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn btn-outline">View Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image fade-up">
+        <div class="about-frame">
+          <span>Add your photo here</span>
+        </div>
+        <div class="about-accent"></div>
+      </div>
+      <div class="about-text fade-up">
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">Title goes<br>here — <em>subtitle</em></h2>
+        <p>Body text</p>
+        <p>Body text</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">—</div>
+            <div class="stat-label">Stat Label</div>
+          </div>
+          <div>
+            <div class="stat-num">—</div>
+            <div class="stat-label">Stat Label</div>
+          </div>
+          <div>
+            <div class="stat-num">—</div>
+            <div class="stat-label">Stat Label</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header fade-up">
+      <span class="section-tag">What I Offer</span>
+      <h2 class="section-title">Services &amp; <em>Treatments</em></h2>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-overlay">
+          <h3>Service Title</h3>
+          <div class="service-footer">
+            <span class="service-price">Starting at $XX</span>
+            <a href="#book" class="btn-book">Book</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header fade-up">
+      <span class="section-tag">My Work</span>
+      <h2 class="section-title">The <em>Gallery</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Classic Lashes</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Volume Set</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Lash Lift</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Facial Glow</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph"><span>Your photo</span></div>
+        <div class="gallery-overlay"><span class="gallery-label">Before &amp; After</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="book">
+  <div class="container">
+    <div class="booking-grid">
+
+      <div class="booking-info fade-up">
+        <span class="section-tag">Appointments</span>
+        <h2>Booking<br><em>heading here</em></h2>
+        <p>Body text</p>
+        <div class="booking-locs">
+          <div class="booking-loc">
+            <div class="loc-icon"></div>
+            <div>
+              <h4>At the Studio</h4>
+              <p>Body text</p>
+            </div>
+          </div>
+          <div class="booking-loc">
+            <div class="loc-icon"></div>
+            <div>
+              <h4>At Your Home</h4>
+              <p>Body text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form fade-up">
+        <div class="form-title">Request an Appointment</div>
+        <form id="booking-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="(000) 000-0000">
+          </div>
+          <div class="form-group">
+            <label>Service</label>
+            <select required>
+              <option value="">Select a service...</option>
+              <option>Service Title</option>
+              <option>Service Title</option>
+              <option>Service Title</option>
+              <option>Service Title</option>
+              <option>Facial Treatment</option>
+              <option>Service Title</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Location Preference</label>
+            <div class="radio-group">
+              <div class="radio-opt">
+                <input type="radio" name="location" id="loc-studio" value="studio" checked>
+                <label for="loc-studio">Studio</label>
+              </div>
+              <div class="radio-opt">
+                <input type="radio" name="location" id="loc-home" value="home">
+                <label for="loc-home">My Home</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Preferred Date &amp; Time</label>
+            <input type="datetime-local">
+          </div>
+          <div class="form-group">
+            <label>Notes (optional)</label>
+            <textarea placeholder="Any allergies, preferences, or questions..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="submit-btn">Send Booking Request</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Vivian Curated</div>
+  <div class="footer-tag">Lash &amp; Beauty Specialist</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
+  <div class="footer-social">
+    <a href="#" class="social-btn" title="Instagram">IG</a>
+    <a href="#" class="social-btn" title="TikTok">TT</a>
+  </div>
+  <p class="footer-copy">© 2026 Vivian Doan Beauty. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 80}ms`;
+    observer.observe(el);
+  });
+
+  // Booking form feedback
+  document.getElementById('booking-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = '✓ Request Sent!';
+    btn.style.background = '#5C3340';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Booking Request';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3500);
+  });
+</script>
+
+</body>
+</html>
