@@ -6,7 +6,7 @@
   <title>Vivian Curated</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Parisienne&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -225,12 +225,13 @@
       gap: 0.5rem;
     }
 
-    .about-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-frame img[src]:not([src=""]) ~ .about-ph { display: none; }
 
     .about-accent {
       position: absolute;
       bottom: -1.5rem;
-      right: -1.5rem;
+      left: -1.5rem;
       width: 55%;
       aspect-ratio: 1;
       background: linear-gradient(135deg, #F0E8DC, #D4C0A8);
@@ -246,49 +247,30 @@
       margin-bottom: 1.25rem;
     }
 
-    .about-stats {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--pale);
-    }
-
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 500;
-      color: var(--rose);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-      margin-top: 0.3rem;
-    }
 
     /* ── SERVICES ── */
-    .services { background: var(--cream); }
+    .services { background: var(--cream); padding-left: 0; padding-right: 0; }
+
+    .services .container { padding: 0 2rem; }
 
     .services-header { text-align: center; margin-bottom: 3rem; }
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
+      padding: 0 2rem;
     }
 
     .service-card {
       position: relative;
-      border-radius: 16px;
+      border-radius: 14px;
       overflow: hidden;
-      aspect-ratio: 2/3;
+      aspect-ratio: 3/4;
       cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
+      background-size: cover;
+      background-position: center;
     }
 
     .service-card:hover {
@@ -296,12 +278,106 @@
       box-shadow: 0 24px 60px rgba(30,20,16,0.22);
     }
 
-    .service-card:nth-child(1) { background: linear-gradient(160deg, #D4C0A8, #A07858); }
-    .service-card:nth-child(2) { background: linear-gradient(160deg, #C8B090, #8A6845); }
-    .service-card:nth-child(3) { background: linear-gradient(160deg, #DDD0BC, #B89870); }
-    .service-card:nth-child(4) { background: linear-gradient(160deg, #C4AA88, #906848); }
-    .service-card:nth-child(5) { background: linear-gradient(160deg, #E4D8C8, #C0A080); }
-    .service-card:nth-child(6) { background: linear-gradient(160deg, #CCBA9C, #A07858); }
+    /* Gradient fallback — shows until real photo is dropped in */
+    .service-card:nth-child(1) { background-color: #B89878; background-image: url('images/facials.jpg'), linear-gradient(160deg, #D4C0A8, #A07858); }
+    .service-card:nth-child(2) { background-color: #A08060; background-image: url('images/brows.jpg'),  linear-gradient(160deg, #C8B090, #8A6845); }
+    .service-card:nth-child(3) { background-color: #C0A070; background-image: url('images/lashes.jpg'), linear-gradient(160deg, #DDD0BC, #B89870); }
+    .service-card:nth-child(4) { background-color: #906848; background-image: url('images/nails.jpg'),  linear-gradient(160deg, #C4AA88, #906848); }
+
+    /* ── MODAL ── */
+    .service-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .service-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(30,20,16,0.6);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-card {
+      position: relative;
+      background: var(--white);
+      border-radius: 22px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 460px;
+      transform: translateY(24px);
+      transition: transform 0.3s;
+      box-shadow: 0 30px 80px rgba(30,20,16,0.25);
+    }
+
+    .service-modal.open .modal-card { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--deep);
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .modal-options { display: flex; flex-direction: column; gap: 0.65rem; }
+
+    .modal-opt {
+      width: 100%;
+      padding: 0.9rem 1.25rem;
+      background: var(--pale);
+      border: 1.5px solid transparent;
+      border-radius: 10px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-opt:hover {
+      border-color: var(--rose);
+      background: var(--white);
+      color: var(--deep);
+    }
+
+    .modal-opt span { color: var(--muted); font-size: 0.8rem; }
 
     .service-overlay {
       position: absolute;
@@ -309,43 +385,36 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 1.25rem 1.5rem;
+      align-items: center;
+      padding: 1.5rem 1.25rem;
       background: linear-gradient(to bottom, rgba(30,20,16,0.55) 0%, transparent 35%, transparent 60%, rgba(30,20,16,0.72) 100%);
     }
 
     .service-card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      font-style: normal;
       color: var(--white);
       text-align: center;
-      line-height: 1.2;
-    }
-
-    .service-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .service-price {
-      color: rgba(255,255,255,0.78);
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      line-height: 1.15;
     }
 
     .btn-book {
       display: inline-block;
       background: var(--white);
       color: var(--deep);
-      padding: 0.42rem 1.1rem;
+      padding: 0.6rem 0;
+      width: 78%;
+      text-align: center;
       border-radius: 50px;
       font-size: 0.67rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       text-decoration: none;
+      border: none;
+      cursor: pointer;
       transition: all 0.22s;
       font-family: 'Jost', sans-serif;
     }
@@ -363,6 +432,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
+      padding: 0 0.4rem;
     }
 
     .gallery-item {
@@ -374,6 +444,14 @@
 
     .gallery-item:nth-child(1) { grid-row: span 2; }
     .gallery-item:nth-child(4) { grid-row: span 2; }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .gallery-ph {
       width: 100%;
@@ -423,166 +501,130 @@
     /* ── BOOKING ── */
     .booking { background: var(--white); }
 
-    .booking-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
+    .booking-header { text-align: center; margin-bottom: 2.5rem; }
 
-    .booking-info h2 {
+    .booking-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       color: var(--deep);
       line-height: 1.2;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.75rem;
     }
 
-    .booking-info h2 em { font-style: italic; color: var(--rose); }
+    .booking-header h2 em { font-style: italic; color: var(--rose); }
 
-    .booking-info > p {
+    .booking-header p {
       font-size: 0.9rem;
       color: var(--muted);
+      font-weight: 300;
+      line-height: 1.85;
+    }
+
+    .location-tabs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .location-tab {
+      padding: 0.85rem 2rem;
+      border: 1.5px solid var(--light-rose);
+      border-radius: 50px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: all 0.25s;
+    }
+
+    .location-tab:hover { border-color: var(--rose); color: var(--rose); }
+
+    .location-tab.active {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: var(--white);
+    }
+
+    .location-panel { display: none; }
+    .location-panel.active { display: block; }
+
+    /* LashBar panel */
+    .lashbar-wrap, .holly-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .lashbar-wrap p, .holly-wrap p {
+      font-size: 0.92rem;
+      color: var(--text);
       font-weight: 300;
       line-height: 1.85;
       margin-bottom: 2rem;
     }
 
-    .booking-locs { display: flex; flex-direction: column; gap: 1rem; }
-
-    .booking-loc {
+    .loc-services {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1.25rem;
-      border-radius: 14px;
-      background: var(--pale);
-    }
-
-    .loc-icon {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, var(--light-rose), var(--rose));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
+      gap: 0.75rem;
       justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
     }
 
-    .booking-loc h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--deep);
-      font-weight: 500;
-      margin-bottom: 0.2rem;
-    }
-
-    .booking-loc p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      font-weight: 300;
-      margin: 0;
-    }
-
-    .booking-form {
+    .loc-service-pill {
+      padding: 0.55rem 1.4rem;
       background: var(--pale);
-      border-radius: 22px;
-      padding: 2.5rem;
-    }
-
-    .form-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.65rem;
-      font-weight: 500;
-      color: var(--deep);
-      margin-bottom: 1.75rem;
-    }
-
-    .form-group { margin-bottom: 1.2rem; }
-
-    .form-group label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.82rem 1rem;
-      border: 1.5px solid rgba(160,120,88,0.2);
-      border-radius: 10px;
-      background: var(--white);
-      font-family: 'Jost', sans-serif;
-      font-size: 0.88rem;
-      color: var(--deep);
-      outline: none;
-      transition: border-color 0.2s;
-      appearance: none;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus { border-color: var(--rose); }
-
-    .form-group textarea { min-height: 95px; resize: vertical; }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-    .radio-group { display: flex; gap: 0.75rem; }
-
-    .radio-opt { flex: 1; position: relative; }
-    .radio-opt input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-    .radio-opt label {
-      display: block;
-      padding: 0.75rem;
-      text-align: center;
-      border: 1.5px solid rgba(160,120,88,0.2);
-      border-radius: 10px;
-      cursor: pointer;
-      background: var(--white);
-      font-size: 0.8rem !important;
-      font-weight: 500 !important;
-      letter-spacing: 0.03em !important;
-      text-transform: none !important;
-      color: var(--muted) !important;
-      transition: all 0.2s;
-    }
-    .radio-opt input[type="radio"]:checked + label {
-      border-color: var(--rose);
-      background: #F5EFE6;
-      color: var(--rose) !important;
-    }
-
-    .btn-submit {
-      width: 100%;
-      margin-top: 0.5rem;
-      padding: 1rem;
-      background: var(--rose);
-      color: var(--white);
-      border: none;
       border-radius: 50px;
       font-family: 'Jost', sans-serif;
       font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
+      color: var(--text);
     }
 
-    .btn-submit:hover {
+    .loc-book-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2.8rem;
+      background: var(--rose);
+      color: var(--white);
+      border-radius: 50px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .loc-book-btn:hover {
       background: var(--deep);
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(30,20,16,0.25);
+      box-shadow: 0 10px 28px rgba(30,20,16,0.22);
+    }
+
+    .booking-embed {
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 580px;
+      background: var(--pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
     }
 
     /* ── FOOTER ── */
@@ -657,13 +699,13 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
 
-      .about-grid,
-      .booking-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
 
       .about-image { max-width: 300px; margin: 0 auto; }
 
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; padding: 0 1rem; }
+      .service-card { aspect-ratio: 1/1; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 0 0.4rem; }
       .gallery-item:nth-child(1),
       .gallery-item:nth-child(4) { grid-row: span 1; }
       .gallery-item:nth-child(1) .gallery-ph,
@@ -700,7 +742,7 @@
   <div class="hero-content">
     <span class="hero-tag">Esthetician &nbsp;·&nbsp; San Diego, California</span>
     <h1><em>Vivian Curated</em></h1>
-    <p>Body text</p>
+    <p>Glow From Within.</p>
     <div class="hero-buttons">
       <a href="#book" class="btn btn-primary">Book an Appointment</a>
       <a href="#services" class="btn btn-outline">View Services</a>
@@ -712,31 +754,18 @@
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-image fade-up">
-        <div class="about-frame">
-          <span>Add your photo here</span>
-        </div>
-        <div class="about-accent"></div>
-      </div>
       <div class="about-text fade-up">
         <span class="section-tag">About Me</span>
-        <h2 class="section-title">Title goes<br>here — <em>subtitle</em></h2>
-        <p>Body text</p>
-        <p>Body text</p>
-        <div class="about-stats">
-          <div>
-            <div class="stat-num">—</div>
-            <div class="stat-label">Stat Label</div>
-          </div>
-          <div>
-            <div class="stat-num">—</div>
-            <div class="stat-label">Stat Label</div>
-          </div>
-          <div>
-            <div class="stat-num">—</div>
-            <div class="stat-label">Stat Label</div>
-          </div>
+        <h2 class="section-title">Glow From <em>Within.</em></h2>
+        <p>Hello, my name is Vivian. I'm a passionate licensed esthetician dedicated to providing quality solutions to help my clients feel the most confident. I have a deep love for skincare and cosmetics that was sparked by my Vietnamese roots. Growing up, skincare was more than a routine — it was a cherished ritual that my aunties raved about.</p>
+        <p>I believe each person deserves a personalized experience that honors their unique skin and goals. Whether you're tackling a specific concern or simply investing in your glow, I'm here to guide you every step of the way.</p>
+      </div>
+      <div class="about-image fade-up">
+        <div class="about-frame">
+          <img src="images/about.jpg" alt="Vivian" onerror="this.style.display='none'">
+          <span class="about-ph">Add your photo here</span>
         </div>
+        <div class="about-accent"></div>
       </div>
     </div>
   </div>
@@ -749,70 +778,38 @@
       <span class="section-tag">What I Offer</span>
       <h2 class="section-title">Services &amp; <em>Treatments</em></h2>
     </div>
-    <div class="services-grid">
+  </div>
+  <div class="services-grid">
 
-      <div class="service-card fade-up">
+      <div class="service-card fade-up" onclick="openModal('facials')">
         <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
+          <h3>Facials</h3>
+          <button class="btn-book" onclick="openModal('facials'); event.stopPropagation()">Book</button>
         </div>
       </div>
 
-      <div class="service-card fade-up">
+      <div class="service-card fade-up" onclick="openModal('brows')">
         <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
+          <h3>Brows</h3>
+          <button class="btn-book" onclick="openModal('brows'); event.stopPropagation()">Book</button>
         </div>
       </div>
 
-      <div class="service-card fade-up">
+      <div class="service-card fade-up" onclick="openModal('lashes')">
         <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
+          <h3>Lashes</h3>
+          <button class="btn-book" onclick="openModal('lashes'); event.stopPropagation()">Book</button>
         </div>
       </div>
 
-      <div class="service-card fade-up">
+      <div class="service-card fade-up" onclick="openModal('nails')">
         <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="service-card fade-up">
-        <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="service-card fade-up">
-        <div class="service-overlay">
-          <h3>Service Title</h3>
-          <div class="service-footer">
-            <span class="service-price">Starting at $XX</span>
-            <a href="#book" class="btn-book">Book</a>
-          </div>
+          <h3>Nails</h3>
+          <button class="btn-book" onclick="openModal('nails'); event.stopPropagation()">Book</button>
         </div>
       </div>
 
     </div>
-  </div>
 </section>
 
 <!-- GALLERY -->
@@ -822,31 +819,33 @@
       <span class="section-tag">My Work</span>
       <h2 class="section-title">The <em>Gallery</em></h2>
     </div>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Classic Lashes</span></div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Volume Set</span></div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Lash Lift</span></div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Facial Glow</span></div>
-      </div>
-      <div class="gallery-item">
-        <div class="gallery-ph"><span>Your photo</span></div>
-        <div class="gallery-overlay"><span class="gallery-label">Before &amp; After</span></div>
-      </div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <!-- Photo: <img src="images/yourphoto.jpg" alt=""> -->
+      <!-- Video: <video src="videos/yourclip.mp4" autoplay muted loop playsinline></video> -->
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-ph"><span>Photo or video</span></div>
+      <div class="gallery-overlay"><span class="gallery-label">Service Title</span></div>
     </div>
   </div>
 </section>
@@ -854,96 +853,69 @@
 <!-- BOOKING -->
 <section class="booking" id="book">
   <div class="container">
-    <div class="booking-grid">
 
-      <div class="booking-info fade-up">
-        <span class="section-tag">Appointments</span>
-        <h2>Booking<br><em>heading here</em></h2>
-        <p>Body text</p>
-        <div class="booking-locs">
-          <div class="booking-loc">
-            <div class="loc-icon"></div>
-            <div>
-              <h4>At the Studio</h4>
-              <p>Body text</p>
-            </div>
-          </div>
-          <div class="booking-loc">
-            <div class="loc-icon"></div>
-            <div>
-              <h4>At Your Home</h4>
-              <p>Body text</p>
-            </div>
-          </div>
+    <div class="booking-header fade-up">
+      <span class="section-tag">Appointments</span>
+      <h2>Book an <em>Appointment</em></h2>
+      <p>Choose a location below to book directly.</p>
+    </div>
+
+    <div class="location-tabs fade-up">
+      <button class="location-tab active" onclick="switchLocation('lashbar')">LASHBAR La Jolla</button>
+      <button class="location-tab" onclick="switchLocation('holly')">Holly Nail Wax &amp; Spa</button>
+    </div>
+
+    <!-- LASHBAR La Jolla -->
+    <div class="location-panel active" id="panel-lashbar">
+      <div class="lashbar-wrap fade-up">
+        <p>Brow and lash services are available at LASHBAR La Jolla.<br>Click below to book directly through their site.</p>
+        <div class="loc-services">
+          <span class="loc-service-pill">Brow Waxing — $30</span>
+          <span class="loc-service-pill">Keratin Brow Lamination — $125</span>
+          <span class="loc-service-pill">Lash Lift — $99</span>
+        </div>
+        <a href="https://booking.lashbar.com/webstoreNew/services/ec02d91d-cc49-4de2-82c4-0c4a3d333942?booking_source=booknow" target="_blank" rel="noopener" class="loc-book-btn">
+          Book at LASHBAR &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Holly Nail Wax & Spa -->
+    <div class="location-panel" id="panel-holly">
+      <div class="holly-wrap fade-up">
+        <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Book a time directly through the calendar below.</p>
+        <div class="loc-services">
+          <span class="loc-service-pill">Custom Correcting Facial</span>
+          <span class="loc-service-pill">Acne Facial</span>
+          <span class="loc-service-pill">Sculpting Facial</span>
+          <span class="loc-service-pill">Brow Waxing</span>
+          <span class="loc-service-pill">Keratin Brow Lamination</span>
+          <span class="loc-service-pill">Lash Lift</span>
+          <span class="loc-service-pill">Gel-X</span>
+          <span class="loc-service-pill">Fill</span>
+          <span class="loc-service-pill">Manicure (Gel Polish)</span>
+          <span class="loc-service-pill">Manicure (Regular Polish)</span>
+        </div>
+        <!-- SQUARE APPOINTMENTS EMBED -->
+        <!-- 1. Sign up / log in at squareup.com/appointments -->
+        <!-- 2. Set your hours, services, and prices in the Square dashboard -->
+        <!-- 3. Go to Online Booking → Share → copy your booking page URL -->
+        <!-- 4. Replace YOUR_SQUARE_BOOKING_URL below with that link -->
+        <!-- Example URL: https://square.site/appointments/buyer/widget/XXXXXXXX/LOCATION_ID -->
+        <div class="booking-embed">
+          <!-- <iframe src="YOUR_SQUARE_BOOKING_URL" width="100%" height="580" frameborder="0"></iframe> -->
+          <span>Booking calendar coming soon</span>
         </div>
       </div>
-
-      <div class="booking-form fade-up">
-        <div class="form-title">Request an Appointment</div>
-        <form id="booking-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Last name" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="your@email.com" required>
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" placeholder="(000) 000-0000">
-          </div>
-          <div class="form-group">
-            <label>Service</label>
-            <select required>
-              <option value="">Select a service...</option>
-              <option>Service Title</option>
-              <option>Service Title</option>
-              <option>Service Title</option>
-              <option>Service Title</option>
-              <option>Facial Treatment</option>
-              <option>Service Title</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Location Preference</label>
-            <div class="radio-group">
-              <div class="radio-opt">
-                <input type="radio" name="location" id="loc-studio" value="studio" checked>
-                <label for="loc-studio">Studio</label>
-              </div>
-              <div class="radio-opt">
-                <input type="radio" name="location" id="loc-home" value="home">
-                <label for="loc-home">My Home</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Preferred Date &amp; Time</label>
-            <input type="datetime-local">
-          </div>
-          <div class="form-group">
-            <label>Notes (optional)</label>
-            <textarea placeholder="Any allergies, preferences, or questions..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit" id="submit-btn">Send Booking Request</button>
-        </form>
-      </div>
-
     </div>
+
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Vivian Curated</div>
-  <div class="footer-tag">Lash &amp; Beauty Specialist</div>
+  <div class="footer-tag">Esthetician</div>
   <ul class="footer-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
@@ -951,13 +923,95 @@
     <li><a href="#book">Book</a></li>
   </ul>
   <div class="footer-social">
-    <a href="#" class="social-btn" title="Instagram">IG</a>
-    <a href="#" class="social-btn" title="TikTok">TT</a>
+    <a href="https://www.instagram.com/vivian.curated" target="_blank" class="social-btn" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@viviancurated" target="_blank" class="social-btn" title="TikTok">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1-.05z"/></svg>
+    </a>
   </div>
   <p class="footer-copy">© 2026 Vivian Doan Beauty. All rights reserved.</p>
 </footer>
 
+<!-- SERVICE MODAL -->
+<div class="service-modal" id="service-modal">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub">Choose a service</div>
+    <div class="modal-options" id="modal-options"></div>
+  </div>
+</div>
+
 <script>
+  // Service modal data
+  const serviceData = {
+    facials: {
+      title: 'Facials',
+      options: [
+        { name: 'Custom Correcting Facial', price: 'Starting at $XX' },
+        { name: 'Acne Facial',              price: 'Starting at $XX' },
+        { name: 'Sculpting Facial',         price: 'Starting at $XX' }
+      ]
+    },
+    brows: {
+      title: 'Brows',
+      options: [
+        { name: 'Brow Waxing',              price: '$30'  },
+        { name: 'Keratin Brow Lamination',  price: '$125' }
+      ]
+    },
+    lashes: {
+      title: 'Lashes',
+      options: [
+        { name: 'Lash Lift', price: '$99' }
+      ]
+    },
+    nails: {
+      title: 'Nails',
+      options: [
+        { name: 'Gel-X',                      price: 'Starting at $XX' },
+        { name: 'Fill',                        price: 'Starting at $XX' },
+        { name: 'Manicure (Gel Polish)',       price: 'Starting at $XX' },
+        { name: 'Manicure (Regular Polish)',   price: 'Starting at $XX' }
+      ]
+    }
+  };
+
+  function openModal(category) {
+    const svc = serviceData[category];
+    document.getElementById('modal-title').textContent = svc.title;
+    document.getElementById('modal-options').innerHTML = svc.options
+      .map(opt => `<button class="modal-opt" onclick="selectService('${opt.name}','${category}')">${opt.name}<span>${opt.price}</span></button>`)
+      .join('');
+    document.getElementById('service-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('service-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function selectService(name, category) {
+    closeModal();
+    const loc = ['brows', 'lashes'].includes(category) ? 'lashbar' : 'holly';
+    switchLocation(loc);
+    document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function switchLocation(loc) {
+    document.querySelectorAll('.location-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.location-panel').forEach(p => p.classList.remove('active'));
+    const idx = loc === 'lashbar' ? 0 : 1;
+    document.querySelectorAll('.location-tab')[idx].classList.add('active');
+    document.getElementById('panel-' + loc).classList.add('active');
+  }
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
   // Scroll fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
