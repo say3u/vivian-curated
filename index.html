@@ -383,6 +383,14 @@
 
     .modal-opt span { color: var(--muted); font-size: 0.8rem; }
 
+    .modal-loc-tag {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 0.2rem;
+      letter-spacing: 0.03em;
+    }
+
     .service-overlay {
       position: absolute;
       inset: 0;
@@ -966,31 +974,34 @@
     facials: {
       title: 'Facials',
       options: [
-        { name: 'Custom Correcting Facial', price: 'Starting at $XX' },
-        { name: 'Acne Facial',              price: 'Starting at $XX' },
-        { name: 'Sculpting Facial',         price: 'Starting at $XX' }
+        { name: 'Custom Correcting Facial', price: 'Starting at $XX', loc: 'holly' },
+        { name: 'Acne Facial',              price: 'Starting at $XX', loc: 'holly' },
+        { name: 'Sculpting Facial',         price: 'Starting at $XX', loc: 'holly' }
       ]
     },
     brows: {
       title: 'Brows',
       options: [
-        { name: 'Brow Waxing',              price: '$30'  },
-        { name: 'Keratin Brow Lamination',  price: '$125' }
+        { name: 'Brow Waxing',             price: '$30',  loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
+        { name: 'Brow Waxing',             price: '$30',  loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' },
+        { name: 'Keratin Brow Lamination', price: '$125', loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
+        { name: 'Keratin Brow Lamination', price: '$125', loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' }
       ]
     },
     lashes: {
       title: 'Lashes',
       options: [
-        { name: 'Lash Lift', price: '$99' }
+        { name: 'Lash Lift', price: '$99', loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
+        { name: 'Lash Lift', price: '$99', loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' }
       ]
     },
     nails: {
       title: 'Nails',
       options: [
-        { name: 'Gel-X',                      price: 'Starting at $XX' },
-        { name: 'Fill',                        price: 'Starting at $XX' },
-        { name: 'Manicure (Gel Polish)',       price: 'Starting at $XX' },
-        { name: 'Manicure (Regular Polish)',   price: 'Starting at $XX' }
+        { name: 'Gel-X',                    price: 'Starting at $XX', loc: 'holly' },
+        { name: 'Fill',                      price: 'Starting at $XX', loc: 'holly' },
+        { name: 'Manicure (Gel Polish)',     price: 'Starting at $XX', loc: 'holly' },
+        { name: 'Manicure (Regular Polish)', price: 'Starting at $XX', loc: 'holly' }
       ]
     }
   };
@@ -999,7 +1010,14 @@
     const svc = serviceData[category];
     document.getElementById('modal-title').textContent = svc.title;
     document.getElementById('modal-options').innerHTML = svc.options
-      .map(opt => `<button class="modal-opt" onclick="selectService('${opt.name}','${category}')">${opt.name}<span>${opt.price}</span></button>`)
+      .map(opt => `
+        <button class="modal-opt" onclick="selectService('${opt.name}','${opt.loc}')">
+          <div>
+            ${opt.name}
+            ${opt.locLabel ? `<div class="modal-loc-tag">${opt.locLabel}</div>` : ''}
+          </div>
+          <span>${opt.price}</span>
+        </button>`)
       .join('');
     document.getElementById('service-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1010,9 +1028,8 @@
     document.body.style.overflow = '';
   }
 
-  function selectService(name, category) {
+  function selectService(name, loc) {
     closeModal();
-    const loc = ['brows', 'lashes'].includes(category) ? 'lashbar' : 'holly';
     switchLocation(loc);
     document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
   }
