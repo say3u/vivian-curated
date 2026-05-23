@@ -559,10 +559,31 @@
     .location-panel { display: none; }
     .location-panel.active { display: block; }
 
+    /* Location panels */
+    .loc-panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .loc-map {
+      border-radius: 14px;
+      overflow: hidden;
+      height: 340px;
+    }
+
+    .loc-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
     /* LashBar panel */
     .lashbar-wrap, .holly-wrap {
-      max-width: 620px;
-      margin: 0 auto;
       text-align: center;
     }
 
@@ -690,6 +711,8 @@
       .nav-links { display: none; }
 
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .loc-panel-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .loc-map { height: 260px; }
 
       .about-image { max-width: 300px; margin: 0 auto; }
 
@@ -857,40 +880,48 @@
 
     <!-- LASHBAR La Jolla -->
     <div class="location-panel active" id="panel-lashbar">
-      <div class="lashbar-wrap fade-up">
-        <p>Brow and lash services are available at LASHBAR La Jolla.<br>Click below to book directly through their site.</p>
-        <div class="loc-services">
-          <span class="loc-service-pill">Brow Waxing — $30</span>
-          <span class="loc-service-pill">Keratin Brow Lamination — $125</span>
-          <span class="loc-service-pill">Lash Lift — $99</span>
+      <div class="loc-panel-grid fade-up">
+        <div class="lashbar-wrap">
+          <p>Brow and lash services are available at LASHBAR La Jolla.<br>Click below to book directly through their site.</p>
+          <div class="loc-services">
+            <span class="loc-service-pill">Brow Waxing — $30</span>
+            <span class="loc-service-pill">Keratin Brow Lamination — $125</span>
+            <span class="loc-service-pill">Lash Lift — $99</span>
+          </div>
+          <a href="https://booking.lashbar.com/webstoreNew/services/ec02d91d-cc49-4de2-82c4-0c4a3d333942?booking_source=booknow" target="_blank" rel="noopener" class="loc-book-btn">
+            Book at LASHBAR &rarr;
+          </a>
         </div>
-        <a href="https://booking.lashbar.com/webstoreNew/services/ec02d91d-cc49-4de2-82c4-0c4a3d333942?booking_source=booknow" target="_blank" rel="noopener" class="loc-book-btn">
-          Book at LASHBAR &rarr;
-        </a>
+        <div class="loc-map">
+          <iframe src="https://maps.google.com/maps?q=LASHBAR+La+Jolla+CA&output=embed" allowfullscreen loading="lazy"></iframe>
+        </div>
       </div>
     </div>
 
     <!-- Holly Nail Wax & Spa -->
     <div class="location-panel" id="panel-holly">
-      <div class="holly-wrap fade-up">
-        <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Click below to book directly.</p>
-        <div class="loc-services">
-          <span class="loc-service-pill">Custom Correcting Facial</span>
-          <span class="loc-service-pill">Acne Facial</span>
-          <span class="loc-service-pill">Sculpting Facial</span>
-          <span class="loc-service-pill">Brow Waxing</span>
-          <span class="loc-service-pill">Keratin Brow Lamination</span>
-          <span class="loc-service-pill">Lash Lift</span>
-          <span class="loc-service-pill">Gel-X</span>
-          <span class="loc-service-pill">Fill</span>
-          <span class="loc-service-pill">Manicure (Gel Polish)</span>
-          <span class="loc-service-pill">Manicure (Regular Polish)</span>
+      <div class="loc-panel-grid fade-up">
+        <div class="holly-wrap">
+          <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Click below to book directly.</p>
+          <div class="loc-services">
+            <span class="loc-service-pill">Custom Correcting Facial</span>
+            <span class="loc-service-pill">Acne Facial</span>
+            <span class="loc-service-pill">Sculpting Facial</span>
+            <span class="loc-service-pill">Brow Waxing</span>
+            <span class="loc-service-pill">Keratin Brow Lamination</span>
+            <span class="loc-service-pill">Lash Lift</span>
+            <span class="loc-service-pill">Gel-X</span>
+            <span class="loc-service-pill">Fill</span>
+            <span class="loc-service-pill">Manicure (Gel Polish)</span>
+            <span class="loc-service-pill">Manicure (Regular Polish)</span>
+          </div>
+          <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
+            Book at Holly &rarr;
+          </a>
         </div>
-      </div>
-      <div style="text-align: center; margin-top: 1rem;">
-        <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
-          Book at Holly &rarr;
-        </a>
+        <div class="loc-map">
+          <iframe src="https://maps.google.com/maps?q=Holly+Nail+Wax+%26+Spa+San+Diego+CA&output=embed" allowfullscreen loading="lazy"></iframe>
+        </div>
       </div>
     </div>
 
