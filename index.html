@@ -443,9 +443,9 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 280px;
       gap: 1rem;
       padding: 0 0.4rem;
+      align-items: start;
     }
 
     .gallery-item {
@@ -459,8 +459,7 @@
     .gallery-item img,
     .gallery-item video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
 
@@ -478,9 +477,6 @@
       font-size: 0.88rem;
       color: rgba(92,51,64,0.4);
     }
-
-    .gallery-item:nth-child(1) { grid-row: span 2; }
-    .gallery-item:nth-child(3) { grid-row: span 2; }
 
     .gallery-item:nth-child(1) { background: linear-gradient(145deg, #D4C0A8, #B89878); }
     .gallery-item:nth-child(2) { background: linear-gradient(145deg, #C8B090, #A88060); }
