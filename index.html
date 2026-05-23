@@ -613,20 +613,6 @@
       box-shadow: 0 10px 28px rgba(30,20,16,0.22);
     }
 
-    .booking-embed {
-      border-radius: 14px;
-      overflow: hidden;
-      min-height: 580px;
-      background: var(--pale);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 1rem;
-    }
-
     /* ── FOOTER ── */
     footer {
       background: var(--deep);
@@ -883,7 +869,7 @@
     <!-- Holly Nail Wax & Spa -->
     <div class="location-panel" id="panel-holly">
       <div class="holly-wrap fade-up">
-        <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Book a time directly through the calendar below.</p>
+        <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Click below to book directly.</p>
         <div class="loc-services">
           <span class="loc-service-pill">Custom Correcting Facial</span>
           <span class="loc-service-pill">Acne Facial</span>
@@ -896,15 +882,9 @@
           <span class="loc-service-pill">Manicure (Gel Polish)</span>
           <span class="loc-service-pill">Manicure (Regular Polish)</span>
         </div>
-        <!-- SQUARE APPOINTMENTS EMBED -->
-        <!-- 1. Sign up / log in at squareup.com/appointments -->
-        <!-- 2. Set your hours, services, and prices in the Square dashboard -->
-        <!-- 3. Go to Online Booking → Share → copy your booking page URL -->
-        <!-- 4. Replace YOUR_SQUARE_BOOKING_URL below with that link -->
-        <!-- Example URL: https://square.site/appointments/buyer/widget/XXXXXXXX/LOCATION_ID -->
-        <div class="booking-embed">
-          <iframe src="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" width="100%" height="580" frameborder="0"></iframe>
-        </div>
+        <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
+          Book at Holly &rarr;
+        </a>
       </div>
     </div>
 
