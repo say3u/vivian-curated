@@ -106,6 +106,49 @@
       100% { transform: scale(1.04) translate(2%, 3%); }
     }
 
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(160,120,88,0.18);
+      pointer-events: none;
+    }
+    .hero-ring-1 { width: 520px; height: 520px; top: -160px; right: -140px; }
+    .hero-ring-2 { width: 320px; height: 320px; top: -60px;  right: -40px;  border-color: rgba(160,120,88,0.1); }
+    .hero-ring-3 { width: 440px; height: 440px; bottom: -140px; left: -140px; }
+    .hero-ring-4 { width: 200px; height: 200px; bottom: -20px;  left: -20px;  border-color: rgba(160,120,88,0.1); }
+
+    .hero-dots {
+      position: absolute;
+      top: 50%;
+      left: 3rem;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      pointer-events: none;
+    }
+    .hero-dots span {
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(160,120,88,0.35);
+    }
+    .hero-dots span:nth-child(2) { opacity: 0.6; margin-left: 6px; }
+    .hero-dots span:nth-child(3) { opacity: 0.35; margin-left: 3px; }
+
+    .hero-tag::before,
+    .hero-tag::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--rose);
+      vertical-align: middle;
+      margin: 0 0.75rem;
+      opacity: 0.5;
+    }
+
     .hero-content { position: relative; z-index: 1; max-width: 720px; }
 
     .hero-tag {
@@ -762,6 +805,13 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+  <div class="hero-ring hero-ring-3"></div>
+  <div class="hero-ring hero-ring-4"></div>
+  <div class="hero-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
   <div class="hero-content">
     <span class="hero-tag">Esthetician &nbsp;·&nbsp; San Diego, California</span>
     <h1><em>Vivian Curated</em></h1>
