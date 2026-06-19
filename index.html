@@ -73,7 +73,7 @@
       background: var(--rose) !important;
       color: var(--white) !important;
       padding: 0.5rem 1.3rem;
-      border-radius: 6px;
+      border-radius: 12px;
     }
 
     .nav-book:hover { background: var(--deep) !important; }
@@ -241,7 +241,7 @@
     .btn {
       display: inline-block;
       padding: 0.85rem 2.2rem;
-      border-radius: 6px;
+      border-radius: 12px;
       font-size: 0.78rem;
       font-weight: 500;
       letter-spacing: 0.1em;
@@ -640,7 +640,7 @@
     .location-tab {
       padding: 0.85rem 2rem;
       border: 1.5px solid var(--light-rose);
-      border-radius: 6px;
+      border-radius: 12px;
       background: transparent;
       cursor: pointer;
       font-family: 'Jost', sans-serif;
@@ -714,7 +714,7 @@
       padding: 0.6rem 1.2rem;
       background: var(--white);
       border: 1px solid rgba(160,120,88,0.25);
-      border-radius: 6px;
+      border-radius: 12px;
       font-family: 'Jost', sans-serif;
       font-size: 0.78rem;
     }
@@ -728,7 +728,7 @@
       padding: 1rem 2.8rem;
       background: var(--rose);
       color: var(--white);
-      border-radius: 6px;
+      border-radius: 12px;
       font-family: 'Jost', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
@@ -1227,7 +1227,7 @@
     text-align: center;
     box-shadow: 0 24px 60px rgba(30,20,16,0.18);
     opacity: 0;
-    pointer-events: all;
+    pointer-events: none;
     transition: opacity 0.6s ease, transform 0.6s ease;
     max-width: 440px;
     width: 90vw;
@@ -1235,6 +1235,7 @@
   #bday-banner.visible {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
   }
   #bday-banner .bday-label {
     font-family: 'Jost', sans-serif;
@@ -1295,7 +1296,7 @@
 <div id="bday-banner">
   <div class="bday-label">Today is a special day</div>
   <div class="bday-title">Happy Birthday, Vivian!</div>
-  <div class="bday-msg">to my beautiful girlfriend</div>
+  <div class="bday-msg">To my beautiful girlfriend</div>
   <button class="bday-close" onclick="closeBday()">Thank you</button>
 </div>
 
