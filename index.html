@@ -167,12 +167,7 @@
       font-weight: 400;
       color: var(--deep);
       line-height: 1.05;
-      display: table;
-      margin: 0 auto 1.5rem;
-      padding: 0.35rem 2.5rem;
-      background: rgba(255,255,255,0.62);
-      backdrop-filter: blur(6px);
-      border-radius: 2px;
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 em { font-style: italic; color: var(--rose); font-weight: 500; }
@@ -190,7 +185,7 @@
     }
 
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .hero-buttons .btn { min-width: 210px; text-align: center; }
+    .hero-buttons .btn { flex: 0 0 220px; text-align: center; }
 
     .btn {
       display: inline-block;
@@ -1090,7 +1085,9 @@
     document.querySelectorAll('.location-panel').forEach(p => p.classList.remove('active'));
     const idx = loc === 'lashbar' ? 0 : 1;
     document.querySelectorAll('.location-tab')[idx].classList.add('active');
-    document.getElementById('panel-' + loc).classList.add('active');
+    const panel = document.getElementById('panel-' + loc);
+    panel.classList.add('active');
+    panel.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
   }
 
   // Close modal on Escape key
