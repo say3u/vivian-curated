@@ -1117,5 +1117,193 @@
   });
 </script>
 
+<!-- Birthday celebration: June 19 only -->
+<style>
+  #bday-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  #bday-banner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    z-index: 10000;
+    background: var(--cream);
+    border: 1px solid rgba(160,120,88,0.35);
+    border-radius: 2px;
+    padding: 2.8rem 3.5rem;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(30,20,16,0.18);
+    opacity: 0;
+    pointer-events: all;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    max-width: 440px;
+    width: 90vw;
+  }
+  #bday-banner.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  #bday-banner .bday-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 0.9rem;
+  }
+  #bday-banner .bday-title {
+    font-family: 'Parisienne', cursive;
+    font-size: 2.6rem;
+    color: var(--deep);
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  #bday-banner .bday-msg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+  }
+  #bday-banner .bday-close {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--rose);
+    border: none;
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background 0.2s;
+  }
+  #bday-banner .bday-close:hover { background: var(--deep); }
+  #bday-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(30,20,16,0.35);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: all;
+    cursor: pointer;
+  }
+  #bday-backdrop.visible { opacity: 1; }
+</style>
+
+<div id="bday-overlay">
+  <canvas id="confetti-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9997;"></canvas>
+</div>
+<div id="bday-backdrop" onclick="closeBday()"></div>
+<div id="bday-banner">
+  <div class="bday-label">Today is a special day</div>
+  <div class="bday-title">Happy Birthday, Vivian!</div>
+  <div class="bday-msg">Wishing you a day as radiant as the glow you give your clients.<br>You deserve every beautiful thing.</div>
+  <button class="bday-close" onclick="closeBday()">Thank you</button>
+</div>
+
+<script>
+(function() {
+  const now = new Date();
+  if (now.getMonth() !== 5 || now.getDate() !== 19) return;
+
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  const banner = document.getElementById('bday-banner');
+  const backdrop = document.getElementById('bday-backdrop');
+
+  const COLORS = ['#A07858','#C8A882','#F0E8DC','#D4A96A','#E8D5B7','#B8906A','#967055','#F7E8D4'];
+  const PIECES = 120;
+  let particles = [];
+  let animId;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function createParticle() {
+    return {
+      x: rand(0, canvas.width),
+      y: rand(-40, -10),
+      w: rand(7, 13),
+      h: rand(4, 8),
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      rot: rand(0, Math.PI * 2),
+      rotSpeed: rand(-0.05, 0.05),
+      vx: rand(-1.2, 1.2),
+      vy: rand(1.6, 3.2),
+      opacity: 1,
+      shape: Math.random() > 0.5 ? 'rect' : 'circle'
+    };
+  }
+
+  for (let i = 0; i < PIECES; i++) {
+    const p = createParticle();
+    p.y = rand(-canvas.height, 0);
+    particles.push(p);
+  }
+
+  function drawParticle(p) {
+    ctx.save();
+    ctx.globalAlpha = p.opacity;
+    ctx.fillStyle = p.color;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    if (p.shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    }
+    ctx.restore();
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rotSpeed;
+      if (p.y > canvas.height + 20) {
+        Object.assign(p, createParticle());
+      }
+      drawParticle(p);
+    });
+    animId = requestAnimationFrame(tick);
+  }
+
+  setTimeout(() => {
+    backdrop.classList.add('visible');
+    banner.classList.add('visible');
+    tick();
+  }, 600);
+
+  window.closeBday = function() {
+    banner.classList.remove('visible');
+    backdrop.classList.remove('visible');
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      backdrop.style.display = 'none';
+    }, 700);
+  };
+})();
+</script>
+
 </body>
 </html>
