@@ -1221,16 +1221,15 @@
     transform: translate(-50%, -50%) scale(0.85);
     z-index: 10000;
     background: var(--cream);
-    border: 1px solid rgba(160,120,88,0.35);
-    border-radius: 2px;
-    padding: 2.8rem 3.5rem;
+    width: 360px;
+    height: 360px;
+    clip-path: path('M 180 340 C 80 270 0 210 0 125 C 0 60 48 10 110 10 C 145 10 175 28 180 55 C 185 28 215 10 250 10 C 312 10 360 60 360 125 C 360 210 280 270 180 340 Z');
+    padding: 115px 40px 50px;
     text-align: center;
-    box-shadow: 0 24px 60px rgba(30,20,16,0.18);
+    filter: drop-shadow(0 16px 40px rgba(30,20,16,0.22));
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.6s ease, transform 0.6s ease;
-    max-width: 440px;
-    width: 90vw;
   }
   #bday-banner.visible {
     opacity: 1;
@@ -1296,7 +1295,7 @@
 <div id="bday-banner">
   <div class="bday-label">Today is a special day</div>
   <div class="bday-title">Happy Birthday, Vivian!</div>
-  <div class="bday-msg">TO MY BEAUTIFUL GIRLFRIEND.</div>
+  <div class="bday-msg">To My Beautiful Girlfriend.</div>
   <button class="bday-close" onclick="closeBday()">YAY!</button>
 </div>
 
