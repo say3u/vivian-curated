@@ -356,7 +356,7 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       padding: 0 2rem;
     }
@@ -381,7 +381,6 @@
     .service-card:nth-child(1) { background-color: #B89878; background-image: url('images/facials.jpg'), linear-gradient(160deg, #D4C0A8, #A07858); }
     .service-card:nth-child(2) { background-color: #A08060; background-image: url('images/brows.jpg'),  linear-gradient(160deg, #C8B090, #8A6845); }
     .service-card:nth-child(3) { background-color: #C0A070; background-image: url('images/lashes.jpg'), linear-gradient(160deg, #DDD0BC, #B89870); }
-    .service-card:nth-child(4) { background-color: #906848; background-image: url('images/nails.jpg'),  linear-gradient(160deg, #C4AA88, #906848); }
 
     /* ── MODAL ── */
     .service-modal {
@@ -949,12 +948,6 @@
         </div>
       </div>
 
-      <div class="service-card fade-up" onclick="openModal('nails')">
-        <div class="service-overlay">
-          <h3>Nails</h3>
-          <button class="btn-book" onclick="openModal('nails'); event.stopPropagation()">Book</button>
-        </div>
-      </div>
 
     </div>
 </section>
@@ -997,55 +990,24 @@
       <p>Choose a location below to book directly.</p>
     </div>
 
-    <div class="location-tabs fade-up">
-      <button class="location-tab active" onclick="switchLocation('lashbar')">LASHBAR La Jolla</button>
-      <button class="location-tab" onclick="switchLocation('holly')">Holly Nail Wax &amp; Spa</button>
-    </div>
-
-    <!-- LASHBAR La Jolla -->
-    <div class="location-panel active" id="panel-lashbar">
-      <div class="loc-panel-grid fade-up">
-        <div class="lashbar-wrap">
-          <p>Brow and lash services are available at LASHBAR La Jolla.<br>Click below to book directly through their site.</p>
-          <div class="loc-services">
-            <span class="loc-service-pill">Brow Waxing — $30</span>
-            <span class="loc-service-pill">Keratin Brow Lamination — $125</span>
-            <span class="loc-service-pill">Lash Lift — $99</span>
-          </div>
-          <a href="https://booking.lashbar.com/webstoreNew/services/ec02d91d-cc49-4de2-82c4-0c4a3d333942?booking_source=booknow" target="_blank" rel="noopener" class="loc-book-btn">
-            Book at LASHBAR &rarr;
-          </a>
-        </div>
-        <div class="loc-map">
-          <iframe src="https://maps.google.com/maps?q=LASHBAR+La+Jolla+CA&output=embed" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-    </div>
-
     <!-- Holly Nail Wax & Spa -->
-    <div class="location-panel" id="panel-holly">
-      <div class="loc-panel-grid fade-up">
-        <div class="holly-wrap">
-          <p>Facials, nails, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Click below to book directly.</p>
-          <div class="loc-services">
-            <span class="loc-service-pill">Custom Correcting Facial — $50</span>
-            <span class="loc-service-pill">Acne Facial — $50</span>
-            <span class="loc-service-pill">Sculpting Facial — $40</span>
-            <span class="loc-service-pill">Brow Waxing — $20</span>
-            <span class="loc-service-pill">Lash Lift + Tint — $60</span>
-            <span class="loc-service-pill">Brow Lamination + Tint — $50</span>
-            <span class="loc-service-pill">GelX — Price varies</span>
-            <span class="loc-service-pill">Fill — Price varies</span>
-            <span class="loc-service-pill">Manicure (Gel Polish) — $37</span>
-            <span class="loc-service-pill">Manicure (Regular Polish) — $25</span>
-          </div>
-          <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
-            Book at Holly &rarr;
-          </a>
+    <div class="loc-panel-grid fade-up">
+      <div class="holly-wrap">
+        <p>Facials, brows, and lashes are all available at Holly Nail Wax &amp; Spa.<br>Click below to book directly.</p>
+        <div class="loc-services">
+          <span class="loc-service-pill">Custom Correcting Facial — $50</span>
+          <span class="loc-service-pill">Acne Facial — $50</span>
+          <span class="loc-service-pill">Sculpting Facial — $40</span>
+          <span class="loc-service-pill">Brow Waxing — $20</span>
+          <span class="loc-service-pill">Lash Lift + Tint — $60</span>
+          <span class="loc-service-pill">Brow Lamination + Tint — $50</span>
         </div>
-        <div class="loc-map">
-          <iframe src="https://maps.google.com/maps?q=Holly+Nail+Wax+%26+Spa+San+Diego+CA&output=embed" allowfullscreen loading="lazy"></iframe>
-        </div>
+        <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
+          Book at Holly &rarr;
+        </a>
+      </div>
+      <div class="loc-map">
+        <iframe src="https://maps.google.com/maps?q=Holly+Nail+Wax+%26+Spa+San+Diego+CA&output=embed" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
 
@@ -1098,26 +1060,14 @@
     brows: {
       title: 'Brows',
       options: [
-        { name: 'Brow Waxing',             price: '$30',  loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
-        { name: 'Brow Waxing',           price: '$20',  loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' },
-        { name: 'Keratin Brow Lamination', price: '$125', loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
-        { name: 'Brow Lamination + Tint',  price: '$50',  loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' }
+        { name: 'Brow Waxing',            price: '$20', loc: 'holly' },
+        { name: 'Brow Lamination + Tint', price: '$50', loc: 'holly' }
       ]
     },
     lashes: {
       title: 'Lashes',
       options: [
-        { name: 'Lash Lift',        price: '$99', loc: 'lashbar', locLabel: 'LASHBAR La Jolla' },
-        { name: 'Lash Lift + Tint', price: '$60', loc: 'holly',   locLabel: 'Holly Nail Wax & Spa' }
-      ]
-    },
-    nails: {
-      title: 'Nails',
-      options: [
-        { name: 'GelX',                      price: 'Price varies', loc: 'holly' },
-        { name: 'Fill',                       price: 'Price varies', loc: 'holly' },
-        { name: 'Manicure (Gel Polish)',      price: '$37',          loc: 'holly' },
-        { name: 'Manicure (Regular Polish)',  price: '$25',          loc: 'holly' }
+        { name: 'Lash Lift + Tint', price: '$60', loc: 'holly' }
       ]
     }
   };
@@ -1146,23 +1096,12 @@
 
   function selectService(name, loc) {
     closeModal();
-    switchLocation(loc);
     document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
   }
 
   function toggleMenu() {
     document.getElementById('mobile-menu').classList.toggle('open');
     document.getElementById('hamburger').classList.toggle('open');
-  }
-
-  function switchLocation(loc) {
-    document.querySelectorAll('.location-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.location-panel').forEach(p => p.classList.remove('active'));
-    const idx = loc === 'lashbar' ? 0 : 1;
-    document.querySelectorAll('.location-tab')[idx].classList.add('active');
-    const panel = document.getElementById('panel-' + loc);
-    panel.classList.add('active');
-    panel.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
   }
 
   // Close modal on Escape key
