@@ -6,7 +6,6 @@
   <title>Vivian Curated</title>
   <meta property="og:title" content="Vivian Curated">
   <meta property="og:description" content="Licensed esthetician in San Diego — facials, brows, lashes.">
-  <meta property="og:image" content="https://viviancurated.com/images/lashes.jpg">
   <meta property="og:url" content="https://viviancurated.com">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -670,9 +669,9 @@
     .booking-map-wrap {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      max-width: 680px;
+      align-items: stretch;
+      gap: 1.5rem;
+      max-width: 780px;
       margin: 0 auto;
     }
 
@@ -689,7 +688,8 @@
     .loc-map {
       border-radius: 14px;
       overflow: hidden;
-      height: 340px;
+      height: 500px;
+      width: 100%;
     }
 
     .loc-map iframe {
@@ -738,7 +738,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 4.5rem;
+      padding: 1.1rem 4.5rem;
+      width: 100%;
+      justify-content: center;
       background: var(--rose);
       color: var(--white);
       border-radius: 12px;
@@ -838,7 +840,7 @@
 
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .loc-panel-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .loc-map { height: 260px; }
+      .loc-map { height: 340px; }
 
       .about-image { max-width: 300px; margin: 0 auto; }
 
@@ -950,26 +952,26 @@
   </div>
   <div class="services-grid">
 
-      <div class="service-card fade-up" onclick="openModal('facials')">
+      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
         <div class="service-overlay">
           <h3>Facials</h3>
-          <button class="btn-book" onclick="openModal('facials'); event.stopPropagation()">Book</button>
+          <span class="btn-book">Book</span>
         </div>
-      </div>
+      </a>
 
-      <div class="service-card fade-up" onclick="openModal('brows')">
+      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
         <div class="service-overlay">
           <h3>Brows</h3>
-          <button class="btn-book" onclick="openModal('brows'); event.stopPropagation()">Book</button>
+          <span class="btn-book">Book</span>
         </div>
-      </div>
+      </a>
 
-      <div class="service-card fade-up" onclick="openModal('lashes')">
+      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
         <div class="service-overlay">
           <h3>Lashes</h3>
-          <button class="btn-book" onclick="openModal('lashes'); event.stopPropagation()">Book</button>
+          <span class="btn-book">Book</span>
         </div>
-      </div>
+      </a>
 
 
     </div>
