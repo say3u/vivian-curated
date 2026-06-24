@@ -674,6 +674,25 @@
       max-width: 780px;
       margin: 0 auto;
     }
+    .booking-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      text-align: center;
+    }
+    .booking-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
 
     /* Location panels */
     .loc-panel-grid {
@@ -1015,9 +1034,15 @@
     </div>
 
     <div class="booking-map-wrap fade-up">
+      <p class="booking-desc">Facials, brows, and lash services tailored to your beauty goals.</p>
       <a href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener" class="loc-book-btn">
         Book with Me &rarr;
       </a>
+      <div class="booking-info">
+        <span>📍 Chula Vista, CA</span>
+        <span>📞 (619) 340-7259</span>
+        <span>🕒 Mon–Fri &nbsp;|&nbsp; 9:00 AM–5:00 PM</span>
+      </div>
       <div class="loc-map">
         <iframe src="https://maps.google.com/maps?q=Holly+Nail+Wax+%26+Spa+San+Diego+CA&output=embed" allowfullscreen loading="lazy"></iframe>
       </div>
