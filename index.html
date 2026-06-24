@@ -564,6 +564,24 @@
 
     /* ── GALLERY ── */
     .gallery-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-ig-wrap { text-align: center; margin-top: 2.5rem; }
+    .gallery-ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+      text-decoration: none;
+      border: 1px solid var(--light-rose);
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .gallery-ig-btn:hover { background: var(--rose); color: var(--white); }
     .gallery-header .section-sub { margin: 0 auto; }
 
     .gallery-grid {
@@ -1082,6 +1100,12 @@
       <img src="images/4.jpg" alt="Keratin Lash Lift + Tint">
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
     </div>
+  </div>
+  <div class="gallery-ig-wrap fade-up">
+    <a href="https://instagram.com/vivian.curated" target="_blank" rel="noopener" class="gallery-ig-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      @vivian.curated
+    </a>
   </div>
 </section>
 
