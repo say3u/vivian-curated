@@ -952,26 +952,26 @@
   </div>
   <div class="services-grid">
 
-      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
+      <div class="service-card fade-up" onclick="openModal('facials')">
         <div class="service-overlay">
           <h3>Facials</h3>
-          <span class="btn-book">Book</span>
+          <button class="btn-book" onclick="openModal('facials'); event.stopPropagation()">Book</button>
         </div>
-      </a>
+      </div>
 
-      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
+      <div class="service-card fade-up" onclick="openModal('brows')">
         <div class="service-overlay">
           <h3>Brows</h3>
-          <span class="btn-book">Book</span>
+          <button class="btn-book" onclick="openModal('brows'); event.stopPropagation()">Book</button>
         </div>
-      </a>
+      </div>
 
-      <a class="service-card fade-up" href="https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/6R2XDPHYHXCXBU5257MUZ245" target="_blank" rel="noopener">
+      <div class="service-card fade-up" onclick="openModal('lashes')">
         <div class="service-overlay">
           <h3>Lashes</h3>
-          <span class="btn-book">Book</span>
+          <button class="btn-book" onclick="openModal('lashes'); event.stopPropagation()">Book</button>
         </div>
-      </a>
+      </div>
 
 
     </div>
@@ -1064,22 +1064,22 @@
     facials: {
       title: 'Facials',
       options: [
-        { name: 'Custom Correcting Facial', price: '$50', loc: 'holly' },
-        { name: 'Acne Facial',              price: '$50', loc: 'holly' },
-        { name: 'Sculpting Facial',         price: '$40', loc: 'holly' }
+        { name: 'Custom Correcting Facial', price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/KTCM3MWH5FI6QHBLKAKCLLEH' },
+        { name: 'Acne Facial',              price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' },
+        { name: 'Sculpting Facial',         price: '$40', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' }
       ]
     },
     brows: {
       title: 'Brows',
       options: [
-        { name: 'Brow Waxing',            price: '$20', loc: 'holly' },
-        { name: 'Brow Lamination + Tint', price: '$50', loc: 'holly' }
+        { name: 'Brow Waxing',            price: '$20', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/FDMX2IRMS5ZE6JUJ7JJFZGAR' },
+        { name: 'Brow Lamination + Tint', price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/PC4R4ORLVQDOJA34XB47URLU' }
       ]
     },
     lashes: {
       title: 'Lashes',
       options: [
-        { name: 'Lash Lift + Tint', price: '$60', loc: 'holly' }
+        { name: 'Lash Lift + Tint', price: '$60', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/7RVVUHQAZMMJT6ZRPEPL3REB' }
       ]
     }
   };
@@ -1089,13 +1089,10 @@
     document.getElementById('modal-title').textContent = svc.title;
     document.getElementById('modal-options').innerHTML = svc.options
       .map(opt => `
-        <button class="modal-opt" onclick="selectService('${opt.name}','${opt.loc}')">
-          <div>
-            ${opt.name}
-            ${opt.locLabel ? `<div class="modal-loc-tag">${opt.locLabel}</div>` : ''}
-          </div>
+        <a class="modal-opt" href="${opt.url}" target="_blank" rel="noopener" onclick="closeModal()">
+          <div>${opt.name}</div>
           <span>${opt.price}</span>
-        </button>`)
+        </a>`)
       .join('');
     document.getElementById('service-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
