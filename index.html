@@ -242,6 +242,33 @@
       line-height: 1.8;
     }
 
+    .hero-checks {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 1.4rem;
+      margin: 1rem 0 1.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-rose);
+    }
+    .hero-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .hero-desc span {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .hero-buttons .btn { flex: 0 0 240px; text-align: center; white-space: nowrap; }
 
@@ -942,7 +969,13 @@
   <div class="hero-content">
     <span class="hero-tag">Esthetician &nbsp;·&nbsp; San Diego, California</span>
     <h1><em>Vivian Curated</em></h1>
-    <p>Glow From Within.</p>
+    <ul class="hero-checks">
+      <li>✓ Licensed Esthetician</li>
+      <li>✓ Chula Vista / San Diego</li>
+      <li>✓ Facials &bull; Brows &bull; Lashes</li>
+      <li>✓ Online Booking Available</li>
+    </ul>
+    <p class="hero-desc">Licensed Esthetician in San Diego<br><span>Custom facials, brows, and lashes designed to help you look and feel your best.</span></p>
     <div class="hero-buttons">
       <a href="#book" class="btn btn-primary">Book an Appointment</a>
       <a href="#services" class="btn btn-outline">View Services</a>
