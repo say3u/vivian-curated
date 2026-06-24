@@ -722,6 +722,17 @@
       color: var(--text);
       letter-spacing: 0.04em;
     }
+    .booking-info span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .booking-info svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: var(--rose);
+    }
     .booking-address {
       text-align: center;
       font-family: 'Jost', sans-serif;
@@ -1075,9 +1086,18 @@
         Book with Me &rarr;
       </a>
       <div class="booking-info">
-        <span>📍 Chula Vista, CA</span>
-        <span>📞 (619) 340-7259</span>
-        <span>🕒 Mon–Fri &nbsp;|&nbsp; 9:00 AM–5:00 PM</span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-4-7-7.5-7-11a7 7 0 0 1 14 0c0 3.5-3 7-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Chula Vista, CA
+        </span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/></svg>
+          (619) 340-7259
+        </span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+          Mon–Fri &nbsp;|&nbsp; 9:00 AM–5:00 PM
+        </span>
       </div>
       <div class="loc-map">
         <iframe src="https://maps.google.com/maps?q=Holly+Nail+Wax+%26+Spa+San+Diego+CA&output=embed" allowfullscreen loading="lazy"></iframe>
