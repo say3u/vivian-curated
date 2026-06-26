@@ -498,7 +498,8 @@
       transition: all 0.2s;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: 1rem;
     }
 
     .modal-opt:hover {
@@ -507,7 +508,15 @@
       color: var(--deep);
     }
 
-    .modal-opt span { color: var(--muted); font-size: 0.8rem; }
+    .modal-opt span { color: var(--muted); font-size: 0.85rem; font-weight: 600; white-space: nowrap; padding-top: 0.1rem; }
+
+    .modal-opt-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.55;
+      margin-top: 0.3rem;
+    }
 
     .modal-loc-tag {
       font-size: 0.72rem;
@@ -1184,22 +1193,22 @@
     facials: {
       title: 'Facials',
       options: [
-        { name: 'Custom Correcting Facial', price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/KTCM3MWH5FI6QHBLKAKCLLEH' },
-        { name: 'Acne Facial',              price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' },
-        { name: 'Sculpting Facial',         price: '$40', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' }
+        { name: 'Custom Correcting Facial', price: '$50', desc: 'Includes a consultation and skin analysis to create a personalized treatment that targets your specific skin concerns, helping to restore balance and leave your skin healthy, refreshed, and glowing.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/KTCM3MWH5FI6QHBLKAKCLLEH' },
+        { name: 'Acne Facial',              price: '$50', desc: 'Includes a consultation and skin analysis to customize your treatment, followed by deep cleansing to unclog pores, reduce excess oil, and help calm breakouts for clearer, healthier-looking skin.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' },
+        { name: 'Sculpting Facial',         price: '$50', desc: 'Includes a consultation and skin analysis, followed by specialized massage techniques to lift, sculpt, and reduce facial tension, leaving your skin refreshed, toned, and naturally radiant.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' }
       ]
     },
     brows: {
       title: 'Brows',
       options: [
-        { name: 'Brow Waxing',            price: '$20', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/FDMX2IRMS5ZE6JUJ7JJFZGAR' },
-        { name: 'Brow Lamination + Tint', price: '$60', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/PC4R4ORLVQDOJA34XB47URLU' }
+        { name: 'Brow Lamination + Tint', price: '$40', desc: 'Achieve effortlessly full, fluffy, and perfectly sculpted brows with our Brow Lamination treatment. Service also includes a consultation, brow waxing and shaping for a clean, polished look that lasts 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/PC4R4ORLVQDOJA34XB47URLU' },
+        { name: 'Brow Waxing + Shaping',  price: '$15', desc: 'Each service includes a consultation and customized brow shaping to remove unwanted hair and create clean, defined brows that complement your face.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/FDMX2IRMS5ZE6JUJ7JJFZGAR' }
       ]
     },
     lashes: {
       title: 'Lashes',
       options: [
-        { name: 'Lash Lift + Tint', price: '$50', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/7RVVUHQAZMMJT6ZRPEPL3REB' }
+        { name: 'Korean Lash Lift + Tint', price: '$35', desc: 'Achieve naturally lifted, curled lashes with our gentle Korean Lash Lift treatment. Each service includes a consultation and personalized rod size selection to create your desired curl, leaving your lashes lifted, curled, and beautifully defined for 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/7RVVUHQAZMMJT6ZRPEPL3REB' }
       ]
     }
   };
@@ -1210,7 +1219,10 @@
     document.getElementById('modal-options').innerHTML = svc.options
       .map(opt => `
         <a class="modal-opt" href="${opt.url}" target="_blank" rel="noopener" onclick="closeModal()">
-          <div>${opt.name}</div>
+          <div>
+            <div>${opt.name}</div>
+            ${opt.desc ? `<div class="modal-opt-desc">${opt.desc}</div>` : ''}
+          </div>
           <span>${opt.price}</span>
         </a>`)
       .join('');
