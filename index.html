@@ -574,6 +574,73 @@
     /* ── GALLERY ── */
     .gallery-header { text-align: center; margin-bottom: 3rem; }
     .gallery-ig-wrap { text-align: center; margin-top: 2.5rem; }
+
+    .gallery-extra {
+      display: none;
+      padding: 0.5rem 0.4rem 0;
+      animation: galleryFadeIn 0.45s ease;
+    }
+    .gallery-extra.open { display: block; }
+
+    @keyframes galleryFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .gallery-extra-grid {
+      columns: 3;
+      column-gap: 0.5rem;
+    }
+
+    .gallery-extra-item {
+      break-inside: avoid;
+      margin-bottom: 0.5rem;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: block;
+    }
+
+    .gallery-extra-item img,
+    .gallery-extra-item video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .gallery-extra-item .gallery-overlay { position: absolute; inset: 0; }
+
+    .gallery-see-more-wrap {
+      text-align: center;
+      margin-top: 1.75rem;
+    }
+
+    .gallery-see-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+      background: none;
+      border: 1px solid var(--light-rose);
+      padding: 0.65rem 1.75rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .gallery-see-more-btn:hover { background: var(--rose); color: var(--white); }
+
+    .gallery-see-more-btn svg {
+      transition: transform 0.3s;
+    }
+
+    .gallery-see-more-btn.open svg { transform: rotate(180deg); }
     .gallery-ig-btn {
       display: inline-flex;
       align-items: center;
@@ -960,6 +1027,7 @@
       .gallery-item:nth-child(3),
       .gallery-item:nth-child(4) { grid-column: unset; grid-row: unset; height: 270px; }
       .gallery-item img, .gallery-item video { height: 100%; }
+      .gallery-extra-grid { columns: 2; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
@@ -1110,6 +1178,17 @@
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
     </div>
   </div>
+  <div class="gallery-see-more-wrap fade-up">
+    <button class="gallery-see-more-btn" id="gallery-see-more-btn" onclick="toggleGalleryExtra()">
+      See More
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+  <div class="gallery-extra" id="gallery-extra">
+    <div class="gallery-extra-grid">
+      <!-- Add extra gallery items here -->
+    </div>
+  </div>
   <div class="gallery-ig-wrap fade-up">
     <a href="https://instagram.com/vivian.curated" target="_blank" rel="noopener" class="gallery-ig-btn">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
@@ -1193,22 +1272,22 @@
     facials: {
       title: 'Facials',
       options: [
-        { name: 'Custom Correcting Facial', price: '$50', desc: 'Includes a consultation and skin analysis to create a personalized treatment that targets your specific skin concerns, helping to restore balance and leave your skin healthy, refreshed, and glowing.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/KTCM3MWH5FI6QHBLKAKCLLEH' },
-        { name: 'Acne Facial',              price: '$50', desc: 'Includes a consultation and skin analysis to customize your treatment, followed by deep cleansing to unclog pores, reduce excess oil, and help calm breakouts for clearer, healthier-looking skin.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' },
-        { name: 'Sculpting Facial',         price: '$50', desc: 'Includes a consultation and skin analysis, followed by specialized massage techniques to lift, sculpt, and reduce facial tension, leaving your skin refreshed, toned, and naturally radiant.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' }
+        { name: 'Custom Correcting Facial', price: '', desc: 'Includes a consultation and skin analysis to create a personalized treatment that targets your specific skin concerns, helping to restore balance and leave your skin healthy, refreshed, and glowing.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/KTCM3MWH5FI6QHBLKAKCLLEH' },
+        { name: 'Acne Facial',              price: '', desc: 'Includes a consultation and skin analysis to customize your treatment, followed by deep cleansing to unclog pores, reduce excess oil, and help calm breakouts for clearer, healthier-looking skin.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' },
+        { name: 'Sculpting Facial',         price: '', desc: 'Includes a consultation and skin analysis, followed by specialized massage techniques to lift, sculpt, and reduce facial tension, leaving your skin refreshed, toned, and naturally radiant.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/Z5I3QUWUKUTCDQGDNG3MTU6J' }
       ]
     },
     brows: {
       title: 'Brows',
       options: [
-        { name: 'Brow Lamination + Tint', price: '$40', desc: 'Achieve effortlessly full, fluffy, and perfectly sculpted brows with our Brow Lamination treatment. Service also includes a consultation, brow waxing and shaping for a clean, polished look that lasts 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/PC4R4ORLVQDOJA34XB47URLU' },
-        { name: 'Brow Waxing + Shaping',  price: '$15', desc: 'Each service includes a consultation and customized brow shaping to remove unwanted hair and create clean, defined brows that complement your face.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/FDMX2IRMS5ZE6JUJ7JJFZGAR' }
+        { name: 'Brow Lamination + Tint', price: '', desc: 'Achieve effortlessly full, fluffy, and perfectly sculpted brows with our Brow Lamination treatment. Service also includes a consultation, brow waxing and shaping for a clean, polished look that lasts 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/PC4R4ORLVQDOJA34XB47URLU' },
+        { name: 'Brow Waxing + Shaping',  price: '', desc: 'Each service includes a consultation and customized brow shaping to remove unwanted hair and create clean, defined brows that complement your face.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/FDMX2IRMS5ZE6JUJ7JJFZGAR' }
       ]
     },
     lashes: {
       title: 'Lashes',
       options: [
-        { name: 'Korean Lash Lift + Tint', price: '$35', desc: 'Achieve naturally lifted, curled lashes with our gentle Korean Lash Lift treatment. Each service includes a consultation and personalized rod size selection to create your desired curl, leaving your lashes lifted, curled, and beautifully defined for 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/7RVVUHQAZMMJT6ZRPEPL3REB' }
+        { name: 'Korean Lash Lift + Tint', price: '', desc: 'Achieve naturally lifted, curled lashes with our gentle Korean Lash Lift treatment. Each service includes a consultation and personalized rod size selection to create your desired curl, leaving your lashes lifted, curled, and beautifully defined for 6–8 weeks.', url: 'https://book.squareup.com/appointments/cu6t6m3u21krfs/location/LRYN4A3115MCA/services/7RVVUHQAZMMJT6ZRPEPL3REB' }
       ]
     }
   };
@@ -1227,6 +1306,18 @@
       .join('');
     document.getElementById('service-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function toggleGalleryExtra() {
+    const extra = document.getElementById('gallery-extra');
+    const btn = document.getElementById('gallery-see-more-btn');
+    const isOpen = extra.classList.contains('open');
+    extra.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.childNodes[0].textContent = isOpen ? 'See More' : 'See Less';
+    if (!isOpen) {
+      setTimeout(() => extra.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
   }
 
   function closeModal() {
