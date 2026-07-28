@@ -1012,7 +1012,10 @@
       .gallery-grid .gallery-item:nth-child(2),
       .gallery-grid .gallery-item:nth-child(3),
       .gallery-grid .gallery-item:nth-child(4) { grid-column: unset; grid-row: unset; height: 270px; }
+      .gallery-hidden { grid-template-columns: 1fr; }
+      .gallery-hidden.open { max-height: 1800px; }
       .gallery-hidden .gallery-item img { height: auto; }
+      .gallery-hidden .gallery-item:nth-child(2) { align-self: auto; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
