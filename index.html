@@ -623,7 +623,7 @@
     .gallery-hidden .gallery-item { aspect-ratio: 1; }
     /* Box is square at every breakpoint, so one framing value covers all.
        Higher percentages pull the framing up the video; low values crop her chin. */
-    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 62%; }
+    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 56%; }
 
     .gallery-see-more-wrap { text-align: center; margin-top: 1.5rem; }
 
@@ -1314,16 +1314,42 @@ function toggleGallerySeeMore() {
     const isOpen = hidden.classList.contains('open');
 
     if (isOpen) {
-      // The button sits below the images, so collapsing them shifts it up the
-      // page and the view appears to lurch. Close without the transition and
-      // correct the scroll in the same frame, which keeps the button exactly
-      // where the user tapped. Must be instant: html sets scroll-behavior: smooth.
-      const before = btn.getBoundingClientRect().top;
-      hidden.style.transition = 'none';
+      // Collapsing images that sit above the button pulls it up the page. Drive
+      // the slide and the scroll from the same frame so the button stays visually
+      // still: letting CSS animate the height while JS chases the scroll leaves
+      // the scroll a frame behind, which is what caused the earlier jitter.
+      // Scrolls must be instant here, since html sets scroll-behavior: smooth.
+      const h0 = hidden.getBoundingClientRect().height;
+      const padTop = parseFloat(getComputedStyle(hidden).paddingTop) || 0;
+      const scroll0 = window.scrollY;
+      const duration = 450;
+      const started = performance.now();
+
       hidden.classList.remove('open');
-      const after = btn.getBoundingClientRect().top;
-      window.scrollBy({ top: after - before, behavior: 'instant' });
-      requestAnimationFrame(() => { hidden.style.transition = ''; });
+      hidden.style.transition = 'none';
+      hidden.style.maxHeight = h0 + 'px';
+      hidden.style.opacity = '1';
+      hidden.style.paddingTop = padTop + 'px';
+
+      requestAnimationFrame(function step(now) {
+        const t = Math.min(1, (now - started) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const height = h0 * (1 - eased);
+
+        hidden.style.maxHeight = height + 'px';
+        hidden.style.opacity = String(1 - eased);
+        hidden.style.paddingTop = (padTop * (1 - eased)) + 'px';
+        window.scrollTo({ top: Math.max(0, scroll0 - (h0 - height)), behavior: 'instant' });
+
+        if (t < 1) {
+          requestAnimationFrame(step);
+        } else {
+          hidden.style.transition = '';
+          hidden.style.maxHeight = '';
+          hidden.style.opacity = '';
+          hidden.style.paddingTop = '';
+        }
+      });
     } else {
       hidden.classList.add('open');
     }
