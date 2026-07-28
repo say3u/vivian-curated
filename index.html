@@ -578,6 +578,17 @@
     .gallery-header { text-align: center; margin-bottom: 3rem; }
     .gallery-ig-wrap { text-align: center; margin-top: 2.5rem; }
 
+    .gallery-featured {
+      padding: 0.5rem 0.4rem 0;
+      display: flex;
+      justify-content: center;
+    }
+    .gallery-featured .gallery-item {
+      width: 55%;
+      break-inside: unset;
+      margin-bottom: 0;
+    }
+
 
     .gallery-ig-btn {
       display: inline-flex;
@@ -953,8 +964,8 @@
       .swipe-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--light-rose); opacity: 0.35; display: inline-block; transition: opacity 0.3s; }
       .swipe-dots i.active { opacity: 1; width: 18px; border-radius: 3px; }
 
-      .gallery-grid { columns: 2; }
-      .gallery-item { height: auto; }
+      .gallery-grid { columns: 1; }
+      .gallery-featured .gallery-item { width: 85%; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
@@ -1105,15 +1116,17 @@
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
     </div>
     <div class="gallery-item">
-      <img src="images/5.jpg" alt="">
+      <img src="images/7.jpg" alt="">
       <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
     <div class="gallery-item">
       <video src="images/6.mp4" autoplay muted loop playsinline></video>
       <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
+  </div>
+  <div class="gallery-featured">
     <div class="gallery-item">
-      <img src="images/7.jpg" alt="">
+      <img src="images/5.jpg" alt="">
       <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
   </div>
