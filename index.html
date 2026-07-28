@@ -602,6 +602,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
       padding: 0 0.4rem;
+      align-items: start;
     }
 
     .gallery-item {
@@ -609,19 +610,16 @@
       overflow: hidden;
       position: relative;
       cursor: pointer;
-      height: 280px;
     }
 
     .gallery-item:nth-child(7) {
       grid-column: 2;
-      height: 320px;
     }
 
     .gallery-item img,
     .gallery-item video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
 
@@ -958,7 +956,7 @@
       .swipe-dots i.active { opacity: 1; width: 18px; border-radius: 3px; }
 
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item:nth-child(7) { grid-column: unset; height: 280px; }
+      .gallery-item:nth-child(7) { grid-column: unset; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
