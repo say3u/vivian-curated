@@ -621,7 +621,9 @@
     /* 5.jpg and 7.jpg are square before/after collages: a square box shows them
        whole, and equal column widths guarantee equal heights. */
     .gallery-hidden .gallery-item { aspect-ratio: 1; }
-    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 18%; }
+    /* Box is square at every breakpoint, so one framing value covers all.
+       Higher percentages pull the framing up the video; low values crop her chin. */
+    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 62%; }
 
     .gallery-see-more-wrap { text-align: center; margin-top: 1.5rem; }
 
@@ -1016,7 +1018,6 @@
       .gallery-hidden { grid-template-columns: 1fr; }
       /* Three stacked squares at full column width need generous headroom. */
       .gallery-hidden.open { max-height: 1500px; }
-      .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 8%; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
@@ -1312,20 +1313,9 @@ function toggleGallerySeeMore() {
     const text = document.getElementById('see-more-text');
     const isOpen = hidden.classList.contains('open');
 
-    const anchor = btn.getBoundingClientRect().top;
     hidden.classList.toggle('open');
     btn.classList.toggle('open');
     text.textContent = isOpen ? 'See More' : 'See Less';
-
-    // Pin the button under the user's finger for the whole 0.45s collapse/expand.
-    // Without this the shifting page height makes the view lurch. Must be
-    // instant, since html has scroll-behavior: smooth.
-    const start = performance.now();
-    (function pin(now) {
-      const drift = btn.getBoundingClientRect().top - anchor;
-      if (drift) window.scrollBy({ top: drift, behavior: 'instant' });
-      if (now - start < 500) requestAnimationFrame(pin);
-    })(start);
   }
 
   function closeModal() {
