@@ -1313,7 +1313,21 @@ function toggleGallerySeeMore() {
     const text = document.getElementById('see-more-text');
     const isOpen = hidden.classList.contains('open');
 
-    hidden.classList.toggle('open');
+    if (isOpen) {
+      // The button sits below the images, so collapsing them shifts it up the
+      // page and the view appears to lurch. Close without the transition and
+      // correct the scroll in the same frame, which keeps the button exactly
+      // where the user tapped. Must be instant: html sets scroll-behavior: smooth.
+      const before = btn.getBoundingClientRect().top;
+      hidden.style.transition = 'none';
+      hidden.classList.remove('open');
+      const after = btn.getBoundingClientRect().top;
+      window.scrollBy({ top: after - before, behavior: 'instant' });
+      requestAnimationFrame(() => { hidden.style.transition = ''; });
+    } else {
+      hidden.classList.add('open');
+    }
+
     btn.classList.toggle('open');
     text.textContent = isOpen ? 'See More' : 'See Less';
   }
