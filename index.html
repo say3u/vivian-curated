@@ -583,8 +583,8 @@
     }
 
     .gallery-extra-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 0.5rem;
     }
 
@@ -593,14 +593,12 @@
       overflow: hidden;
       position: relative;
       cursor: pointer;
-      aspect-ratio: 4/3;
     }
 
     .gallery-extra-item img,
     .gallery-extra-item video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
 
@@ -992,8 +990,6 @@
       .gallery-item:nth-child(3),
       .gallery-item:nth-child(4) { grid-column: unset; grid-row: unset; height: 270px; }
       .gallery-item img, .gallery-item video { height: 100%; }
-      .gallery-extra-grid { grid-template-columns: 1fr; }
-      .gallery-extra-item { aspect-ratio: 16/9; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
