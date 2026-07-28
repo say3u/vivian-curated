@@ -639,19 +639,18 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
-      padding: 0.5rem 0.4rem 0;
+      padding: 0 0.4rem;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(14px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
       max-height: 0;
       overflow: hidden;
+      transition: max-height 0.45s ease, opacity 0.35s ease, padding 0.35s ease;
     }
     .gallery-hidden.open {
       opacity: 1;
       pointer-events: all;
-      transform: translateY(0);
-      max-height: 2000px;
+      max-height: 700px;
+      padding: 0.5rem 0.4rem 0;
     }
 
     .gallery-item img,
@@ -1152,17 +1151,17 @@
       <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
   </div>
-  <div class="gallery-see-more-wrap fade-up">
-    <button class="gallery-see-more-btn" id="gallery-see-more-btn" onclick="toggleGallerySeeMore()">
-      <span id="see-more-text">See More</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-  </div>
   <div class="gallery-hidden" id="gallery-hidden">
     <div class="gallery-item">
       <img src="images/4.jpg" alt="Keratin Lash Lift + Tint">
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
     </div>
+  </div>
+  <div class="gallery-see-more-wrap fade-up">
+    <button class="gallery-see-more-btn" id="gallery-see-more-btn" onclick="toggleGallerySeeMore()">
+      <span id="see-more-text">See More</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </div>
   <div class="gallery-ig-wrap fade-up">
     <a href="https://instagram.com/vivian.curated" target="_blank" rel="noopener" class="gallery-ig-btn">
@@ -1291,9 +1290,6 @@ function toggleGallerySeeMore() {
     hidden.classList.toggle('open');
     btn.classList.toggle('open');
     text.textContent = isOpen ? 'See More' : 'See Less';
-    if (!isOpen) {
-      setTimeout(() => hidden.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-    }
   }
 
   function closeModal() {
