@@ -1352,6 +1352,24 @@ function toggleGallerySeeMore() {
       });
     } else {
       hidden.classList.add('open');
+      // The images open above the button, so only their top edge lands in view.
+      // Nudge down to bring more of the first row in, kept small on purpose so
+      // it reads as a drift rather than a jump. Safe to animate: the document is
+      // growing here, unlike the collapse where a smooth scroll gets aborted.
+      //
+      // The container is still clipped at this point, so scrollHeight and the
+      // children's rects both under-report the opened size. The column tracks
+      // are already resolved though, and the items are squares, so a row is one
+      // column wide.
+      const cs = getComputedStyle(hidden);
+      const tracks = cs.gridTemplateColumns.split(' ').filter(Boolean);
+      const rowH = parseFloat(tracks[0]) || 0;
+      const gap = parseFloat(cs.rowGap) || 0;
+      const rows = Math.ceil(hidden.children.length / tracks.length);
+      const openedH = rows * rowH + (rows - 1) * gap;
+
+      const nudge = Math.min(openedH * 0.35, window.innerHeight * 0.4);
+      window.scrollBy({ top: nudge, behavior: 'smooth' });
     }
 
     btn.classList.toggle('open');
