@@ -612,8 +612,46 @@
       cursor: pointer;
     }
 
-    .gallery-item:nth-child(7) {
-      grid-column: 2;
+    .gallery-see-more-wrap { text-align: center; margin-top: 1.5rem; }
+
+    .gallery-see-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rose);
+      background: none;
+      border: 1px solid var(--light-rose);
+      padding: 0.65rem 1.75rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .gallery-see-more-btn:hover { background: var(--rose); color: var(--white); }
+    .gallery-see-more-btn svg { transition: transform 0.3s; }
+    .gallery-see-more-btn.open svg { transform: rotate(180deg); }
+
+    .gallery-hidden {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      padding: 0.5rem 0.4rem 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .gallery-hidden.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+      max-height: 2000px;
     }
 
     .gallery-item img,
@@ -956,7 +994,6 @@
       .swipe-dots i.active { opacity: 1; width: 18px; border-radius: 3px; }
 
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item:nth-child(7) { grid-column: unset; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
@@ -1114,6 +1151,14 @@
       <img src="images/7.jpg" alt="">
       <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
+  </div>
+  <div class="gallery-see-more-wrap fade-up">
+    <button class="gallery-see-more-btn" id="gallery-see-more-btn" onclick="toggleGallerySeeMore()">
+      <span id="see-more-text">See More</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+  <div class="gallery-hidden" id="gallery-hidden">
     <div class="gallery-item">
       <img src="images/4.jpg" alt="Keratin Lash Lift + Tint">
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
@@ -1238,7 +1283,20 @@
     document.body.style.overflow = 'hidden';
   }
 
-function closeModal() {
+function toggleGallerySeeMore() {
+    const hidden = document.getElementById('gallery-hidden');
+    const btn = document.getElementById('gallery-see-more-btn');
+    const text = document.getElementById('see-more-text');
+    const isOpen = hidden.classList.contains('open');
+    hidden.classList.toggle('open');
+    btn.classList.toggle('open');
+    text.textContent = isOpen ? 'See More' : 'See Less';
+    if (!isOpen) {
+      setTimeout(() => hidden.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+  }
+
+  function closeModal() {
     document.getElementById('service-modal').classList.remove('open');
     document.body.style.overflow = '';
   }
