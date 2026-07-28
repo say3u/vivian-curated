@@ -578,33 +578,6 @@
     .gallery-header { text-align: center; margin-bottom: 3rem; }
     .gallery-ig-wrap { text-align: center; margin-top: 2.5rem; }
 
-    .gallery-extra {
-      padding: 0.5rem 0.4rem 0;
-    }
-
-    .gallery-extra-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-    }
-
-    .gallery-extra-item {
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-      height: 290px;
-    }
-
-    .gallery-extra-item img,
-    .gallery-extra-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .gallery-extra-item .gallery-overlay { position: absolute; inset: 0; }
 
     .gallery-ig-btn {
       display: inline-flex;
@@ -628,7 +601,7 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr 420px 1fr;
-      grid-template-rows: 460px 290px;
+      grid-template-rows: 460px 290px 290px;
       gap: 0.5rem;
       padding: 0 0.4rem;
     }
@@ -638,6 +611,9 @@
     .gallery-item:nth-child(2) img { object-position: center 70%; }
     .gallery-item:nth-child(3) { grid-column: 3; grid-row: 1 / 3; }
     .gallery-item:nth-child(4) { grid-column: 2; grid-row: 2; }
+    .gallery-item:nth-child(5) { grid-column: 1; grid-row: 3; }
+    .gallery-item:nth-child(6) { grid-column: 2; grid-row: 3; }
+    .gallery-item:nth-child(7) { grid-column: 3; grid-row: 3; }
 
     .gallery-item {
       border-radius: 10px;
@@ -987,13 +963,9 @@
       .swipe-dots i.active { opacity: 1; width: 18px; border-radius: 3px; }
 
       .gallery-grid { grid-template-columns: 1fr; grid-template-rows: unset; padding: 0 0.4rem; gap: 0.5rem; }
-      .gallery-item:nth-child(1),
-      .gallery-item:nth-child(2),
-      .gallery-item:nth-child(3),
-      .gallery-item:nth-child(4) { grid-column: unset; grid-row: unset; height: 270px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: unset; }
+      .gallery-item { grid-column: unset !important; grid-row: unset !important; height: 270px; }
       .gallery-item img, .gallery-item video { height: 100%; }
-      .gallery-extra-grid { grid-template-columns: 1fr; }
-      .gallery-extra-item { height: 220px; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
@@ -1143,21 +1115,17 @@
       <img src="images/4.jpg" alt="Keratin Lash Lift + Tint">
       <div class="gallery-overlay"><span class="gallery-label">Keratin Lash Lift + Tint</span></div>
     </div>
-  </div>
-  <div class="gallery-extra">
-    <div class="gallery-extra-grid">
-      <div class="gallery-extra-item">
-        <img src="images/5.jpg" alt="">
-        <div class="gallery-overlay"><span class="gallery-label"></span></div>
-      </div>
-      <div class="gallery-extra-item">
-        <video src="images/6.mp4" autoplay muted loop playsinline></video>
-        <div class="gallery-overlay"><span class="gallery-label"></span></div>
-      </div>
-      <div class="gallery-extra-item">
-        <img src="images/7.jpg" alt="">
-        <div class="gallery-overlay"><span class="gallery-label"></span></div>
-      </div>
+    <div class="gallery-item">
+      <img src="images/5.jpg" alt="">
+      <div class="gallery-overlay"><span class="gallery-label"></span></div>
+    </div>
+    <div class="gallery-item">
+      <video src="images/6.mp4" autoplay muted loop playsinline></video>
+      <div class="gallery-overlay"><span class="gallery-label"></span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/7.jpg" alt="">
+      <div class="gallery-overlay"><span class="gallery-label"></span></div>
     </div>
   </div>
   <div class="gallery-ig-wrap fade-up">
