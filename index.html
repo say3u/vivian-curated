@@ -618,8 +618,10 @@
       cursor: pointer;
     }
 
-    .gallery-hidden .gallery-item { height: 280px; }
-    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 8%; }
+    /* 5.jpg and 7.jpg are square before/after collages: a square box shows them
+       whole, and equal column widths guarantee equal heights. */
+    .gallery-hidden .gallery-item { aspect-ratio: 1; }
+    .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 18%; }
 
     .gallery-see-more-wrap { text-align: center; margin-top: 1.5rem; }
 
@@ -1012,8 +1014,9 @@
       .gallery-grid .gallery-item:nth-child(3),
       .gallery-grid .gallery-item:nth-child(4) { grid-column: unset; grid-row: unset; height: 270px; }
       .gallery-hidden { grid-template-columns: 1fr; }
-      .gallery-hidden.open { max-height: 1000px; }
-      .gallery-hidden .gallery-item { height: 270px; }
+      /* Three stacked squares at full column width need generous headroom. */
+      .gallery-hidden.open { max-height: 1500px; }
+      .gallery-hidden .gallery-item:nth-child(2) video { object-position: center 8%; }
 
       .loc-services { justify-content: center; }
       .loc-book-btn { display: flex; margin: 0 auto; justify-content: center; }
